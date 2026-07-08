@@ -2,6 +2,7 @@ from db.connection import get_connection
 from db.query_executor import QueryExecutor
 from utils.config_reader import ConfigReader
 
+from validator.count_validator import CountValidator
 
 def main():
 
@@ -14,6 +15,7 @@ def main():
     config_df = reader.load()
 
     executor = QueryExecutor(conn)
+    count_validator = CountValidator()
 
     for _, row in config_df.iterrows():
 
@@ -25,15 +27,15 @@ def main():
 
         target_df = executor.get_table_data(row["TARGET_TABLE"])
 
-        print(f"ODS Row Count  : {len(source_df)}")
+        count_result = count_validator.validate(
+            source_df,
+            target_df
+        )
 
-        print(f"FACT Row Count : {len(target_df)}")
-
-        print("\n[ODS]")
-        print(source_df)
-
-        print("\n[FACT]")
-        print(target_df)
+        print("\n[COUNT VALIDATION]")
+        print(f"Source Count : {count_result['source_count']}")
+        print(f"Target Count : {count_result['target_count']}")
+        print(f"Result       : {'PASS' if count_result['result'] else 'FAIL'}")
 
         print("=" * 60)
 

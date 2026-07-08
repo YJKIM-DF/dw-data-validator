@@ -1,6 +1,6 @@
 # DW Data Validator
 
-Python-based Data Validation Automation Tool
+Python 기반 데이터 검증 프레임워크
 
 ## 프로젝트 소개
 
@@ -23,14 +23,7 @@ DW/ETL 프로젝트에서는 데이터 적재 이후 다음과 같은 검증 작
 - 누락 데이터 확인
 - 검증 결과 정리 및 보고
 
-현재 대부분의 프로젝트에서는
-
-- SQL 직접 작성
-- Excel 복사
-- VLOOKUP
-- 수동 비교
-
-등의 방식으로 검증을 수행하고 있어 많은 시간이 소요됩니다.
+현재 대부분의 프로젝트에서는 SQL 직접 작성, Excel 복사, VLOOKUP, 수동 비교 등의 방식으로 검증을 수행하고 있어 많은 시간이 소요됩니다.
 
 본 프로젝트에서는 이러한 반복 작업을 자동화하여
 검증 시간을 단축하고 정확성을 향상시키는 것을 목표로 합니다.
@@ -62,6 +55,7 @@ DW/ETL 프로젝트에서는 데이터 적재 이후 다음과 같은 검증 작
 
 ## 프로젝트 구조
 
+```text
 dw-data-validator
 │
 ├── config
@@ -82,16 +76,30 @@ dw-data-validator
 │   ├── utils
 │   │   └── config_reader.py
 │   │
+│   ├── validator
+│   │   ├── __init__.py
+│   │   ├── base_validator.py
+│   │   └── count_validator.py
+│   │
 │   └── main.py
 │
 ├── requirements.txt
 ├── README.md
 └── .gitignore
+```
 
 
 ---
 
 ## 주요 기능
+
+- PostgreSQL 데이터베이스 연결
+- Excel 설정파일(Config) 읽기
+- 설정파일 기반 Source / Target 테이블 조회
+- 조회 결과를 Pandas DataFrame으로 변환
+- Count Validation
+- SQL Script 버전 관리
+
 
 ### DB 연결
 
@@ -160,14 +168,14 @@ dw-data-validator
 
 - [x] 프로젝트 환경 구축
 - [x] GitHub Repository 구성
-- [x] PostgreSQL 연결
+- [x] PostgreSQL 데이터베이스 연결
 - [x] SQL Script 관리
 - [x] 테스트 테이블 생성
 - [x] 샘플 데이터 생성
-- [x] Excel 설정파일 생성
+- [x] Excel 설정파일(Config) 생성
 - [x] Config Reader 구현
 - [x] Query Executor 구현
-- [ ] Count Validation
+- [x] Count Validation
 - [ ] Sum Validation
 - [ ] Group By Validation
 - [ ] Row Compare Validation
@@ -184,6 +192,6 @@ DFOCUS R&D Project
 
 DW Data Validation Framework
 
-Data Biz본부 BDP팀 김예지 선임
+Data Biz.본부 BDP팀 김예지 선임
 
 2026
