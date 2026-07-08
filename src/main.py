@@ -29,13 +29,13 @@ def main():
 
         print(f"FACT Row Count : {len(target_df)}")
 
-        print("=" * 60)
-
         print("\n[ODS]")
         print(source_df)
 
         print("\n[FACT]")
         print(target_df)
+
+        print("=" * 60)
 
     conn.close()
 

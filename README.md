@@ -1,16 +1,20 @@
 ## 개발 진행 현황
 
-- [x] 개발환경 구축
-- [x] GitHub Repository 생성
-- [x] PostgreSQL 환경 구성
-- [x] DB 연결
-- [ ] Excel 설정파일 읽기
-- [ ] Count 검증
-- [ ] Sum 검증
-- [ ] Row Compare
+- [x] 프로젝트 환경 구축
+- [x] GitHub Repository 구성
+- [x] PostgreSQL 연결
+- [x] SQL Script 관리
+- [x] 테스트 테이블 생성
+- [x] 샘플 데이터 생성
+- [x] Excel 설정파일 생성
+- [x] Config Reader 구현
+- [x] Query Executor 구현
+- [ ] Count Validation
+- [ ] Sum Validation
+- [ ] Group By Validation
+- [ ] Row Compare Validation
+- [ ] Validation History 저장
 - [ ] Excel Report 생성
-- [ ] 검증 이력 관리
-- [ ] 통합 테스트
 
 
 # DW Data Validator
@@ -64,37 +68,43 @@ DW/ETL 프로젝트에서는 데이터 적재 이후 다음과 같은 검증 작
 
 ## 사용 라이브러리
 
-- pandas
-- openpyxl
-- psycopg
-- python-dotenv
+|라이브러리|용도|
+|---|---|
+|pandas|Excel 읽기 및 데이터 처리|
+|openpyxl|Excel 파일 처리|
+|psycopg[binary]|PostgreSQL 연결|
+|python-dotenv|환경변수(.env) 관리|
 
 ---
 
 ## 프로젝트 구조
 
-```
 dw-data-validator
 │
-├── config                 # 설정파일(Excel)
-├── docs                   # 프로젝트 문서(PRD, 기능명세서)
-├── sample                 # 샘플 파일
-├── sql                    # DB 생성 SQL
+├── config
+│   └── validation_config.xlsx
+│
+├── sql
+│   ├── 01_create_schema.sql
+│   ├── 02_create_tables.sql
+│   ├── 03_insert_sample_data.sql
+│   ├── 04_drop_objects.sql
+│   └── README.md
 │
 ├── src
-│   ├── db                 # DB Connection
-│   ├── validators         # 검증 로직
-│   ├── reports            # Excel Report 생성
-│   ├── history            # 검증 이력 관리
-│   ├── utils              # 공통 함수
+│   ├── db
+│   │   ├── connection.py
+│   │   └── query_executor.py
+│   │
+│   ├── utils
+│   │   └── config_reader.py
+│   │
 │   └── main.py
-│
-├── tests                  # 테스트 코드
 │
 ├── requirements.txt
 ├── README.md
 └── .gitignore
-```
+
 
 ---
 
@@ -152,58 +162,22 @@ dw-data-validator
 
 ---
 
-## 개발 진행 일정
-
-|일정|내용|
-|------|------|
-|7/7|개발환경 구축 및 프로젝트 생성|
-|7/8|DB 연결 및 Excel 설정파일 구현|
-|7/9|Count / Sum 검증 구현|
-|7/10|Row Compare 구현|
-|7/13|Excel Report 생성|
-|7/14|검증 이력 관리|
-|7/15|리팩토링 및 예외처리|
-|7/16|통합 테스트 및 버그 수정|
-|7/17|개발 완료|
-
----
 
 ## 향후 개선 사항
 
-- Oracle DB 지원
-- AI 기반 검증 결과 분석
-- 검증 대상 자동 추천
-- CLI(Command Line Interface) 지원
+- Validation 결과 Excel 자동 생성
+- AI 기반 검증 결과 분석 기능 검토
+- 다양한 검증 Rule 추가
 
----
-
-## Git Commit Rule
-
-```
-feat    : 기능 추가
-fix     : 버그 수정
-refactor: 코드 개선
-docs    : 문서 수정
-style   : 코드 스타일 수정
-chore   : 환경 설정 및 기타 작업
-```
-
-예시
-
-```
-feat: add PostgreSQL connection
-feat: implement count validator
-feat: implement Excel report generator
-fix: correct row comparison logic
-docs: update README
-```
 
 ---
 
 ## 개발자
 
-R&D Project
+DFOCUS R&D Project
 
 DW Data Validation Framework
+
+Data Biz본부 BDP팀 김예지 선임
 
 2026
