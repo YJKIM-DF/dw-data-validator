@@ -1,23 +1,6 @@
-## 개발 진행 현황
-
-- [x] 프로젝트 환경 구축
-- [x] GitHub Repository 구성
-- [x] PostgreSQL 연결
-- [x] SQL Script 관리
-- [x] 테스트 테이블 생성
-- [x] 샘플 데이터 생성
-- [x] Excel 설정파일 생성
-- [x] Config Reader 구현
-- [x] Query Executor 구현
-- [ ] Count Validation
-- [ ] Sum Validation
-- [ ] Group By Validation
-- [ ] Row Compare Validation
-- [ ] Validation History 저장
-- [ ] Excel Report 생성
-
-
 # DW Data Validator
+
+Python-based Data Validation Automation Tool
 
 ## 프로젝트 소개
 
@@ -171,6 +154,29 @@ dw-data-validator
 
 
 ---
+
+
+## 개발 진행 현황
+
+- [x] 프로젝트 환경 구축
+- [x] GitHub Repository 구성
+- [x] PostgreSQL 연결
+- [x] SQL Script 관리
+- [x] 테스트 테이블 생성
+- [x] 샘플 데이터 생성
+- [x] Excel 설정파일 생성
+- [x] Config Reader 구현
+- [x] Query Executor 구현
+- [ ] Count Validation
+- [ ] Sum Validation
+- [ ] Group By Validation
+- [ ] Row Compare Validation
+- [ ] Validation History 저장
+- [ ] Excel Report 생성
+
+
+---
+
 
 ## 개발자
 
