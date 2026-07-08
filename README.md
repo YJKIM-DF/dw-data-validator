@@ -3,7 +3,7 @@
 - [x] 개발환경 구축
 - [x] GitHub Repository 생성
 - [x] PostgreSQL 환경 구성
-- [ ] DB 연결
+- [x] DB 연결
 - [ ] Excel 설정파일 읽기
 - [ ] Count 검증
 - [ ] Sum 검증
@@ -99,6 +99,13 @@ dw-data-validator
 ---
 
 ## 주요 기능
+
+### DB 연결
+
+- `.env` 파일 기반 PostgreSQL 연결 지원
+- DB 접속 정보를 코드와 분리하여 관리
+
+---
 
 ### 1. Excel 설정파일 기반 검증
 
