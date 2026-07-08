@@ -19,4 +19,6 @@ class ConfigReader:
             sheet_name="ValidationConfig"
         )
 
+        df = df[df["USE_YN"] == "Y"]
+
         return df

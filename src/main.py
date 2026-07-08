@@ -1,26 +1,41 @@
 from db.connection import get_connection
+from db.query_executor import QueryExecutor
 from utils.config_reader import ConfigReader
 
 
 def main():
 
     conn = get_connection()
+
     print("PostgreSQL 연결 성공!")
 
     reader = ConfigReader("config/validation_config.xlsx")
 
     config_df = reader.load()
 
-    print("\nValidation Config")
+    executor = QueryExecutor(conn)
 
     for _, row in config_df.iterrows():
+
+        print("\n" + "=" * 60)
+
         print(f"Validation Name : {row['VALIDATION_NAME']}")
-        print(f"Source Table    : {row['SOURCE_TABLE']}")
-        print(f"Target Table    : {row['TARGET_TABLE']}")
-        print(f"PK Columns      : {row['PK_COLUMNS']}")
-        print(f"Group By        : {row['GROUP_BY_COLUMNS']}")
-        print(f"Compare Columns : {row['COMPARE_COLUMNS']}")
-        print("-" * 50)
+
+        source_df = executor.get_table_data(row["SOURCE_TABLE"])
+
+        target_df = executor.get_table_data(row["TARGET_TABLE"])
+
+        print(f"ODS Row Count  : {len(source_df)}")
+
+        print(f"FACT Row Count : {len(target_df)}")
+
+        print("=" * 60)
+
+        print("\n[ODS]")
+        print(source_df)
+
+        print("\n[FACT]")
+        print(target_df)
 
     conn.close()
 
