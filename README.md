@@ -80,6 +80,7 @@ dw-data-validator
 │   │   ├── __init__.py
 │   │   ├── base_validator.py
 │   │   └── count_validator.py
+│   │   └── sum_validator.py
 │   │
 │   └── main.py
 │
@@ -98,6 +99,7 @@ dw-data-validator
 - 설정파일 기반 Source / Target 테이블 조회
 - 조회 결과를 Pandas DataFrame으로 변환
 - Count Validation
+- Sum Validation
 - SQL Script 버전 관리
 
 
@@ -153,6 +155,20 @@ dw-data-validator
 
 ---
 
+## 검증 대상
+
+현재 테스트 데이터는 다음과 같은 검증 시나리오를 포함합니다.
+
+|검증 항목|예상 결과|설명|
+|---|---|---|
+|Count Validation|PASS|ODS와 FACT의 Row 수가 동일|
+|Sum Validation (qty)|FAIL|합계 수량 불일치|
+|Sum Validation (sale_amt)|FAIL|합계 금액 불일치|
+|Row Compare Validation|FAIL|sale_id=3의 sale_amt 변경|
+|PK Compare Validation|FAIL|sale_id=4 누락, sale_id=6 추가|
+
+---
+
 
 ## 향후 개선 사항
 
@@ -176,7 +192,7 @@ dw-data-validator
 - [x] Config Reader 구현
 - [x] Query Executor 구현
 - [x] Count Validation
-- [ ] Sum Validation
+- [x] Sum Validation
 - [ ] Group By Validation
 - [ ] Row Compare Validation
 - [ ] Validation History 저장
