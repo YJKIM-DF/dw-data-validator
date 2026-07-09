@@ -4,6 +4,7 @@ from utils.config_reader import ConfigReader
 
 from validator.count_validator import CountValidator
 from validator.sum_validator import SumValidator
+from validator.groupby_validator import GroupByValidator
 
 def main():
 
@@ -19,6 +20,7 @@ def main():
 
     count_validator = CountValidator()
     sum_validator = SumValidator()
+    groupby_validator = GroupByValidator()
 
     for _, row in config_df.iterrows():
 
@@ -40,6 +42,13 @@ def main():
             row["COMPARE_COLUMNS"]
         )
 
+        groupby_result = groupby_validator.validate(
+            source_df,
+            target_df,
+            row["GROUP_BY_COLUMNS"],
+            row["COMPARE_COLUMNS"]
+        )
+
         print("\n[COUNT VALIDATION]")
         print(f"Source Count : {count_result['source_count']}")
         print(f"Target Count : {count_result['target_count']}")
@@ -54,6 +63,57 @@ def main():
             print(f"Target Sum  : {result['target_sum']}")
             print(f"Result      : {'PASS' if result['result'] else 'FAIL'}")
             print()
+
+        print("\n[GROUP BY VALIDATION]")
+
+        print(
+            "Group By Columns : "
+            + ", ".join(groupby_result["group_by_columns"])
+        )
+
+        print(
+            f"Result : {'PASS' if groupby_result['result'] else 'FAIL'}"
+        )
+
+        if not groupby_result["result"]:
+
+            print()
+
+            for _, diff in groupby_result["difference_df"].iterrows():
+
+                print("=" * 50)
+
+                print("[Group]")
+
+                for column in groupby_result["group_by_columns"]:
+                    print(f"{column} : {diff[column]}")
+
+                print()
+
+                print("[Compare]")
+
+                for column in groupby_result["compare_columns"]:
+
+                    print(column)
+
+                    print(
+                        f"  Source : {diff[column + '_source']}"
+                    )
+
+                    print(
+                        f"  Target : {diff[column + '_target']}"
+                    )
+
+                    print(
+                        "  Result : "
+                        + (
+                            "PASS"
+                            if diff[column + "_result"]
+                            else "FAIL"
+                        )
+                    )
+
+                    print()
 
         print("=" * 60)
 

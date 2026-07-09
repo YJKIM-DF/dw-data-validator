@@ -81,6 +81,7 @@ dw-data-validator
 │   │   ├── base_validator.py
 │   │   └── count_validator.py
 │   │   └── sum_validator.py
+│   │   └── groupby_validator.py
 │   │
 │   └── main.py
 │
@@ -100,6 +101,7 @@ dw-data-validator
 - 조회 결과를 Pandas DataFrame으로 변환
 - Count Validation
 - Sum Validation
+- Group By Validation
 - SQL Script 버전 관리
 
 
@@ -193,7 +195,7 @@ dw-data-validator
 - [x] Query Executor 구현
 - [x] Count Validation
 - [x] Sum Validation
-- [ ] Group By Validation
+- [x] Group By Validation
 - [ ] Row Compare Validation
 - [ ] Validation History 저장
 - [ ] Excel Report 생성
