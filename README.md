@@ -82,6 +82,7 @@ dw-data-validator
 │   │   └── count_validator.py
 │   │   └── sum_validator.py
 │   │   └── groupby_validator.py
+│   │   └── rowcompare_validator.py
 │   │
 │   └── main.py
 │
@@ -102,6 +103,7 @@ dw-data-validator
 - Count Validation
 - Sum Validation
 - Group By Validation
+- Row Compare Validation
 - SQL Script 버전 관리
 
 
@@ -166,7 +168,8 @@ dw-data-validator
 |Count Validation|PASS|ODS와 FACT의 Row 수가 동일|
 |Sum Validation (qty)|FAIL|합계 수량 불일치|
 |Sum Validation (sale_amt)|FAIL|합계 금액 불일치|
-|Row Compare Validation|FAIL|sale_id=3의 sale_amt 변경|
+|Group By Validation |FAIL|Store별 집계 결과 불일치|
+|Row Compare Validation|FAIL|UPDATE, DELETE, INSERT 데이터 검출|
 |PK Compare Validation|FAIL|sale_id=4 누락, sale_id=6 추가|
 
 ---
@@ -196,7 +199,7 @@ dw-data-validator
 - [x] Count Validation
 - [x] Sum Validation
 - [x] Group By Validation
-- [ ] Row Compare Validation
+- [x] Row Compare Validation
 - [ ] Validation History 저장
 - [ ] Excel Report 생성
 

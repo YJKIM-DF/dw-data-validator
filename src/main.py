@@ -5,6 +5,7 @@ from utils.config_reader import ConfigReader
 from validator.count_validator import CountValidator
 from validator.sum_validator import SumValidator
 from validator.groupby_validator import GroupByValidator
+from validator.rowcompare_validator import RowCompareValidator
 
 def main():
 
@@ -21,6 +22,7 @@ def main():
     count_validator = CountValidator()
     sum_validator = SumValidator()
     groupby_validator = GroupByValidator()
+    rowcompare_validator = RowCompareValidator()
 
     for _, row in config_df.iterrows():
 
@@ -47,6 +49,12 @@ def main():
             target_df,
             row["GROUP_BY_COLUMNS"],
             row["COMPARE_COLUMNS"]
+        )
+
+        rowcompare_result = rowcompare_validator.validate(
+            source_df,
+            target_df,
+            row["PK_COLUMNS"]
         )
 
         print("\n[COUNT VALIDATION]")
@@ -114,6 +122,74 @@ def main():
                     )
 
                     print()
+
+        print("\n[ROW COMPARE VALIDATION]")
+
+        print(
+            "PK Columns : "
+            + ", ".join(rowcompare_result["pk_columns"])
+        )
+
+        print(
+            f"Result : {'PASS' if rowcompare_result['result'] else 'FAIL'}"
+        )
+
+        if rowcompare_result["update_rows"]:
+
+            print("\n" + "=" * 50)
+            print("[UPDATE]")
+
+            for update in rowcompare_result["update_rows"]:
+
+                print()
+
+                print(f"sale_id : {update['pk']}")
+
+                print()
+
+                for change in update["changes"]:
+
+                    print(change["column"])
+
+                    print(
+                        f"  Source : {change['source']}"
+                    )
+
+                    print(
+                        f"  Target : {change['target']}"
+                    )
+
+                    print()
+
+        if not rowcompare_result["delete_rows"].empty:
+
+            print("=" * 50)
+            print("[DELETE]")
+
+            print()
+
+            for _, delete in rowcompare_result["delete_rows"].iterrows():
+
+                print(
+                    f"sale_id : {delete['sale_id']}"
+                )
+
+            print()
+
+        if not rowcompare_result["insert_rows"].empty:
+
+            print("=" * 50)
+            print("[INSERT]")
+
+            print()
+
+            for _, insert in rowcompare_result["insert_rows"].iterrows():
+
+                print(
+                    f"sale_id : {insert['sale_id']}"
+                )
+
+            print()
 
         print("=" * 60)
 
