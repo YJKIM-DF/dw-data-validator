@@ -7,6 +7,8 @@ from validator.sum_validator import SumValidator
 from validator.groupby_validator import GroupByValidator
 from validator.rowcompare_validator import RowCompareValidator
 
+from report.excel_report_writer import ExcelReportWriter
+
 def main():
 
     conn = get_connection()
@@ -23,6 +25,8 @@ def main():
     sum_validator = SumValidator()
     groupby_validator = GroupByValidator()
     rowcompare_validator = RowCompareValidator()
+    
+    report_writer = ExcelReportWriter()
 
     for _, row in config_df.iterrows():
 
@@ -190,6 +194,21 @@ def main():
                 )
 
             print()
+
+        print("=" * 60)
+
+        report_path = report_writer.write(
+            count_result,
+            sum_results,
+            groupby_result,
+            rowcompare_result
+        )
+
+        print("\n" + "=" * 60)
+
+        print("Excel Report 생성 완료")
+
+        print(f"저장 위치 : {report_path}")
 
         print("=" * 60)
 

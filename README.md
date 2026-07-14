@@ -73,6 +73,10 @@ dw-data-validator
 │   │   ├── connection.py
 │   │   └── query_executor.py
 │   │
+│   ├── report
+│   │   ├── __init__.py
+│   │   └── excel_report_writer.py
+│   │
 │   ├── utils
 │   │   └── config_reader.py
 │   │
@@ -104,6 +108,7 @@ dw-data-validator
 - Sum Validation
 - Group By Validation
 - Row Compare Validation
+- Excel Validation Report 생성
 - SQL Script 버전 관리
 
 
@@ -200,8 +205,8 @@ dw-data-validator
 - [x] Sum Validation
 - [x] Group By Validation
 - [x] Row Compare Validation
+- [x] Excel 결과 리포트 생성
 - [ ] Validation History 저장
-- [ ] Excel Report 생성
 
 
 ---
