@@ -174,14 +174,14 @@ dw-data-validator
 
 현재 테스트 데이터는 다음과 같은 검증 시나리오를 포함합니다.
 
-|검증 항목|예상 결과|설명|
-|---|---|---|
-|Count Validation|PASS|ODS와 FACT의 Row 수가 동일|
-|Sum Validation (qty)|FAIL|합계 수량 불일치|
-|Sum Validation (sale_amt)|FAIL|합계 금액 불일치|
-|Group By Validation |FAIL|Store별 집계 결과 불일치|
-|Row Compare Validation|FAIL|UPDATE, DELETE, INSERT 데이터 검출|
-|PK Compare Validation|FAIL|sale_id=4 누락, sale_id=6 추가|
+|검증 항목|설명|
+|---|---|
+|Count Validation|ODS와 FACT의 Row 수 일치여부|
+|Sum Validation (qty)|합계 수량 일치여부|
+|Sum Validation (sale_amt)|합계 금액 일치여부|
+|Group By Validation |Store별 집계 결과 일치여부|
+|Row Compare Validation|UPDATE, DELETE, INSERT 데이터 검출|
+|PK Compare Validation|sale_id pk별 비교|
 
 ---
 
@@ -226,4 +226,4 @@ DW Data Validation Framework
 
 Data Biz.본부 BDP팀 김예지 선임
 
-2026
+2026.07
