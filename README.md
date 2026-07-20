@@ -34,7 +34,7 @@ DW/ETL 프로젝트에서는 데이터 적재 이후 다음과 같은 검증 작
 
 | 구분 | 내용 |
 |------|------|
-| Language | Python 3.x |
+| Language | Python 3.11+ |
 | DBMS | PostgreSQL |
 | IDE | Visual Studio Code |
 | Version Control | Git / GitHub |
@@ -66,12 +66,17 @@ dw-data-validator
 │   ├── 02_create_tables.sql
 │   ├── 03_insert_sample_data.sql
 │   ├── 04_drop_objects.sql
+│   └── 05_create_validation_history.sql
 │   └── README.md
 │
 ├── src
 │   ├── db
 │   │   ├── connection.py
 │   │   └── query_executor.py
+│   │
+│   ├── history
+│   │   ├── __init__.py
+│   │   └── history_writer.py
 │   │
 │   ├── report
 │   │   ├── __init__.py
@@ -109,6 +114,7 @@ dw-data-validator
 - Group By Validation
 - Row Compare Validation
 - Excel Validation Report 생성
+- Validation History 저장
 - SQL Script 버전 관리
 
 
@@ -206,7 +212,7 @@ dw-data-validator
 - [x] Group By Validation
 - [x] Row Compare Validation
 - [x] Excel 결과 리포트 생성
-- [ ] Validation History 저장
+- [x] Validation History 저장
 
 
 ---

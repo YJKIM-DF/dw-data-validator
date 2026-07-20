@@ -8,6 +8,7 @@ from validator.groupby_validator import GroupByValidator
 from validator.rowcompare_validator import RowCompareValidator
 
 from report.excel_report_writer import ExcelReportWriter
+from history.history_writer import HistoryWriter
 
 def main():
 
@@ -27,6 +28,7 @@ def main():
     rowcompare_validator = RowCompareValidator()
     
     report_writer = ExcelReportWriter()
+    history_writer = HistoryWriter(conn)
 
     for _, row in config_df.iterrows():
 
@@ -204,6 +206,14 @@ def main():
             rowcompare_result
         )
 
+        history_writer.save(
+            row["VALIDATION_NAME"],
+            count_result["result"],
+            sum_results,
+            groupby_result,
+            rowcompare_result
+        )
+
         print("\n" + "=" * 60)
 
         print("Excel Report 생성 완료")
@@ -211,6 +221,14 @@ def main():
         print(f"저장 위치 : {report_path}")
 
         print("=" * 60)
+
+        print()
+
+    print("=" * 60)
+
+    print("Validation History 저장 완료")
+
+    print("=" * 60)
 
     conn.close()
 
