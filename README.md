@@ -87,11 +87,7 @@ dw-data-validator
 │   │
 │   ├── validator
 │   │   ├── __init__.py
-│   │   ├── base_validator.py
-│   │   └── count_validator.py
-│   │   └── sum_validator.py
-│   │   └── groupby_validator.py
-│   │   └── rowcompare_validator.py
+│   │   ├── validator.py
 │   │
 │   └── main.py
 │
@@ -188,7 +184,6 @@ dw-data-validator
 
 ## 향후 개선 사항
 
-- Validation 결과 Excel 자동 생성
 - AI 기반 검증 결과 분석 기능 검토
 - 다양한 검증 Rule 추가
 
