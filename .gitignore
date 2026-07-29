@@ -17,5 +17,8 @@ venv/
 # macOS
 .DS_Store
 
+# config file
+config/
+
 # report files
 output/
