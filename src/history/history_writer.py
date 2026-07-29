@@ -39,8 +39,8 @@ class HistoryWriter:
             (
                 validation_name,
                 "PASS" if count_result else "FAIL",
-                "PASS" if all(result["result"] for result in sum_result) else "FAIL",
-                "PASS" if groupby_result["result"] else "FAIL",
+                "" if not sum_result else "PASS" if all(result["result"] for result in sum_result) else "FAIL",
+                "" if not groupby_result else "PASS" if groupby_result["result"] else "FAIL",
                 "PASS" if rowcompare_result["result"] else "FAIL"
             )
         )

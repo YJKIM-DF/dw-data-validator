@@ -1,3 +1,4 @@
+import pandas as pd
 class Validator:
     """
     Validation 수행 클래스
@@ -11,19 +12,21 @@ class Validator:
     def _split_columns(self, columns):
         """
         문자열 형태의 컬럼 목록을 List로 변환한다.
-
-        Example)
-            "col1,col2,col3"
-                ↓
-            ["col1", "col2", "col3"]
         """
 
+        if pd.isna(columns):
+            return []
+    
         return [
             column.strip()
-            for column in columns.split(",")
+            for column in str(columns).split(",")
+            if column.strip()
         ]
 
 
+    # ==========================================================
+    # Count Validation
+    # ==========================================================
 
     def validate_count(self, source_df, target_df):
         """
@@ -39,7 +42,11 @@ class Validator:
             "target_count": target_count,
             "result": source_count == target_count
         }
+    
 
+    # ==========================================================
+    # Sum Validation
+    # ==========================================================
 
     def validate_sum(
         self,
@@ -69,6 +76,10 @@ class Validator:
 
         return results
 
+
+    # ==========================================================
+    # Group By Validation
+    # ==========================================================
 
     def validate_groupby(
         self,
@@ -139,6 +150,10 @@ class Validator:
         }
 
 
+    # ==========================================================
+    # Row Compare Validation
+    # ==========================================================
+
     def validate_rowcompare(
         self,
         source_df,
@@ -193,6 +208,10 @@ class Validator:
             changes = []
 
             for column in compare_columns:
+
+                # 값이 null인 경우 비교하지 않음
+                if pd.isna(source_row[column]) and pd.isna(target_row[column]):
+                    continue
 
                 if source_row[column] != target_row[column]:
 

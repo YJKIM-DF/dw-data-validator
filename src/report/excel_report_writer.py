@@ -41,19 +41,21 @@ class ExcelReportWriter:
             "PASS" if count_result else "FAIL"
         ])
 
-        summary_sheet.append([
-            "Sum Validation",
-            "PASS" if sum(
-                1
-                for result in sum_result
-                if not result["result"]
-            ) == 0 else "FAIL"
-        ])
+        if sum_result != []:
+            summary_sheet.append([
+                "Sum Validation",
+                "PASS" if sum(
+                    1
+                    for result in sum_result
+                    if not result["result"]
+                ) == 0 else "FAIL"
+            ])
 
-        summary_sheet.append([
-            "Group By Validation",
-            "PASS" if groupby_result["result"] else "FAIL"
-        ])
+        if groupby_result != []:
+            summary_sheet.append([
+                "Group By Validation",
+                "PASS" if groupby_result["result"] else "FAIL"
+            ])
 
         summary_sheet.append([
             "Row Compare Validation",
@@ -61,62 +63,64 @@ class ExcelReportWriter:
         ])
 
         # Sum Validation
-        sum_sheet.append([
-            "Column",
-            "Source",
-            "Target",
-            "Result"
-        ])
-
-        for result in sum_result:
-
+        if sum_result != []:
             sum_sheet.append([
-                result["column"],
-                result["source_sum"],
-                result["target_sum"],
-                "PASS" if result["result"] else "FAIL"
+                "Column",
+                "Source",
+                "Target",
+                "Result"
             ])
 
+            for result in sum_result:
+
+                sum_sheet.append([
+                    result["column"],
+                    result["source_sum"],
+                    result["target_sum"],
+                    "PASS" if result["result"] else "FAIL"
+                ])
+
         # Group By Validation
-        headers = (
-            groupby_result["group_by_columns"]
-            + [
-                f"{column}_source"
-                for column in groupby_result["compare_columns"]
-            ]
-            + [
-                f"{column}_target"
-                for column in groupby_result["compare_columns"]
-            ]
-            + [
-                f"{column}_result"
-                for column in groupby_result["compare_columns"]
-            ]
-        )
+        if groupby_result != []:
+            headers = (
+                groupby_result["group_by_columns"]
+                + [
+                    f"{column}_source"
+                    for column in groupby_result["compare_columns"]
+                ]
+                + [
+                    f"{column}_target"
+                    for column in groupby_result["compare_columns"]
+                ]
+                + [
+                    f"{column}_result"
+                    for column in groupby_result["compare_columns"]
+                ]
+            )
 
-        groupby_sheet.append(headers)
+            groupby_sheet.append(headers)
 
-        for _, row in groupby_result["difference_df"].iterrows():
+            for _, row in groupby_result["difference_df"].iterrows():
 
-            values = []
+                values = []
 
-            for column in groupby_result["group_by_columns"]:
-                values.append(row[column])
+                for column in groupby_result["group_by_columns"]:
+                    values.append(row[column])
 
-            for column in groupby_result["compare_columns"]:
-                values.append(row[f"{column}_source"])
+                for column in groupby_result["compare_columns"]:
+                    values.append(row[f"{column}_source"])
 
-            for column in groupby_result["compare_columns"]:
-                values.append(row[f"{column}_target"])
+                for column in groupby_result["compare_columns"]:
+                    values.append(row[f"{column}_target"])
 
-            for column in groupby_result["compare_columns"]:
-                values.append(
-                    "PASS"
-                    if row[f"{column}_result"]
-                    else "FAIL"
-                )
+                for column in groupby_result["compare_columns"]:
+                    values.append(
+                        "PASS"
+                        if row[f"{column}_result"]
+                        else "FAIL"
+                    )
 
-            groupby_sheet.append(values)
+                groupby_sheet.append(values)
 
         # Row Compare Validation
         rowcompare_sheet.append([
