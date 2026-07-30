@@ -12,7 +12,7 @@
 | --- | --- |
 | Language | Python 3.11+ |
 | Database | PostgreSQL |
-| Library | pandas, psycopg[binary], openpyxl |
+| Library | pandas, psycopg[binary], openpyxl, psutil |
 | IDE | Visual Studio Code |
 
 ### 2. 프로젝트 배경
